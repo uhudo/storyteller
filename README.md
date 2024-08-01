@@ -1,10 +1,10 @@
 # Storyteller
 
-This repository contains the application for the Storyteller project. Storyteller is a game where you cooperate with AI to tell a story. The project was created as an entry for the AMD Pervasive AI Developer Contest on [Hackster.io](https://www.hackster.io/contests/amd2023). Additional information about the project are available at [Storyteller](https://www.hackster.io/uhudo/storyteller-8f7ce6).
+This repository contains the application for the Storyteller project. Storyteller is an adventure where you cooperate with AI to tell a story. The story is visualized with images. The project was created as an entry for the AMD Pervasive AI Developer Contest on [Hackster.io](https://www.hackster.io/contests/amd2023). Additional information about the project are available at [Storyteller](https://www.hackster.io/uhudo/storyteller-8f7ce6).
 
 The project consists of the frontend application which we implemented in Streamlit and two AI model servers that provide the access to LLM and text-to-image models. We used Llama3.1 model for the LLM and stable-diffusion-3-medium-diffusers for the text-to-image model.
 
-Project is implemented in Python and was developed to work with [AMD Accelerator Cloud](https://aac.amd.com) where we used [AMD Instinct MI210](https://www.amd.com/en/products/accelerators/instinct/mi200/mi210.html) accelerators by using [AMD ROCm Software](https://www.amd.com/en/products/software/rocm.html). In the development we used prepared containers with Pytorch v2.1.2 and ROCm v6.1.2 but the project can be deployed on other platforms using ROCm.
+Project is implemented in Python and was developed to work with [AMD Accelerator Cloud](https://aac.amd.com) where we used [AMD Instinct MI210](https://www.amd.com/en/products/accelerators/instinct/mi200/mi210.html) accelerators by using [AMD ROCm Software](https://www.amd.com/en/products/software/rocm.html). In the development we used prepared containers with PyTorch v2.1.2 and ROCm v6.1.2 but the project can be deployed on other platforms using ROCm.
 
 ## Initial step
 Gain access to models on huggingface.co:
@@ -12,7 +12,7 @@ Gain access to models on huggingface.co:
  - [meta-llama/Meta-Llama-3.1-8B](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)
 
 ## Servers
-First, we will present how to run the servers and later we will show how to do initial setup specific for the cloud. If not running this in a container create a python virtual environment and provide additional packages specific to your hardware.
+First, we will present how to run the servers and later we will show how to do initial setup specific for the cloud. If not running the servers in a container, create a python virtual environment first and provide additional packages specific to your hardware.
 ### Instal requirements
 In folder storyteller/storyteller_servers/ run command:
 ```
@@ -29,7 +29,7 @@ python stable_diffusion_server.py
 Wait some time for the models to be downloaded. For this to happen you need to have huggingface key set. You can check in the Cloud section for instructions.
 
 ## Application
-You should run the application on your PC not in the cloud.
+After the servers are running and you can access the servers on localhost (check tunnelling section below for running on cloud), start the application. You should run the application on your PC (not in the cloud).
 ### Install requirements
 In folder storyteller/
 ```
@@ -43,16 +43,17 @@ In folder storyteller/ run:
 .venv\Scripts\activate.bat
 streamlit run storyteller.py
 ```
+By default you can access the application on http://localhost:8501.
 
 ## AMD Accelerator Cloud
-This is preparation for running the AI model servers in the cloud.
+This is preparation for running the AI model servers in the AMD Accelerator Cloud.
 ### Setup
- - When logged in the AMD cloud.
- - Create new workload where you select Pytorch container with Pytorch v2.1.2 and ROCm v6.1.2.
- - In the next step no input files are need unless, or you can provide this repository already in this step.
+ - When logged in the [AMD Accelerator Cloud](https://aac.amd.com).
+ - Create new workload where you select PyTorch container with PyTorch v2.1.2 and ROCm v6.1.2.
+ - In the next step no input files are need.
  - Then you set the time limit to for example 4h and enable telemetry to monitor your workload resource usage.
  - We selected AIG MI210 queue.
- - Overview the selection.
+ - Overview the selection and run the workload.
  - Than wait until you see Connect button for the workload.
 ### Connection
  - On windows open CMD or terminal on Linux and paste in the connection details provided on Connect button in the cloud interface. Where XXXX is your port number provided.
@@ -75,7 +76,7 @@ exit()
 ### Repository setup
 Clone this git repository:
 ```
-git clone https://github.com/uhudo/storyteller
+git clone https://github.com/uhudo/storyteller.git
 ```
 And continue with Servers section.
 ### Tunnelling the connection with ssh
