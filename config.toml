@@ -1,0 +1,4 @@
+[streamlit]
+llama_generate_endpoint = "http://127.0.0.1:3001/api/generate"
+llama_chat_endpoint = "http://127.0.0.1:3001/api/chat"
+stable_diffusion_endpoint = "http://127.0.0.1:3002/api/images"
